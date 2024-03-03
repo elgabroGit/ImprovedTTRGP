@@ -218,6 +218,8 @@ func _start_queue():
 	selected_enemy_index = 0
 	_clean_log_box()
 	emit_signal("signal_stop_ui")
+	action_queue += _generate_enemy_random_attack_queue()
+	action_queue.sort_custom( _speed_sort )
 	for action in action_queue:
 		_populate_factions()
 		# Caso di attacco semplice
@@ -250,6 +252,11 @@ func _validate_origins_and_targets(action) -> bool:
 		else:
 			action['target'] = enemies[0]
 	return true
+	
+func _speed_sort(a, b):
+	if a["speed"] > b["speed"]:
+		return true
+	return false
 
 func _populate_factions():
 	all_targets.clear()
@@ -290,5 +297,21 @@ func _check_battle_status() -> bool:
 	return true	
 	
 # Enemy AI
-func _generate_random_attack():
-	pass
+func _generate_random_attack() -> int:
+	var index_target = randi_range(0, players.size() - 1)
+	return index_target
+
+func _generate_enemy_random_attack_queue() -> Array:
+	var action_element
+	var enemy_action_queue: Array
+	for enemy in enemies:
+		action_element = {
+			"origin": enemy, 
+			"target": players[_generate_random_attack()], 
+			"speed": enemy.speed, 
+			"action": null
+		}
+		enemy_action_queue.append(action_element)
+	return enemy_action_queue
+	
+# In queue 

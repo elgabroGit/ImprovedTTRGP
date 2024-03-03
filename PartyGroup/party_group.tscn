@@ -1,30 +1,52 @@
-[gd_scene load_steps=5 format=3 uid="uid://b85koefhfwb5b"]
+[gd_scene load_steps=9 format=3 uid="uid://b85koefhfwb5b"]
 
 [ext_resource type="Script" path="res://PartyGroup/party_group.gd" id="1_rqy5n"]
 [ext_resource type="PackedScene" uid="uid://d3dfww3d05g5c" path="res://Character/character.tscn" id="2_w41in"]
 [ext_resource type="Resource" uid="uid://c467ufxhsoojh" path="res://Abilities/simple_slash.tres" id="3_2mn4p"]
 [ext_resource type="Resource" uid="uid://ddk2nlhmsq0ge" path="res://Abilities/simple_arrow.tres" id="4_2jyhs"]
+[ext_resource type="Texture2D" uid="uid://cy4rbd16sesms" path="res://Assets/hero_1.png" id="5_fvoor"]
+[ext_resource type="Texture2D" uid="uid://hswcogeqmttj" path="res://Assets/hero_2.png" id="6_2kqwn"]
+[ext_resource type="Texture2D" uid="uid://de22d15cvuttf" path="res://Assets/hero_3.png" id="7_0trt1"]
+[ext_resource type="Texture2D" uid="uid://d3f7d6644fjxh" path="res://Assets/hero_4.png" id="8_w2fuf"]
 
 [node name="PartyGroup" type="Node2D"]
 script = ExtResource("1_rqy5n")
 
 [node name="Player1" parent="." instance=ExtResource("2_w41in")]
 is_enemy = false
-character_name = "Player 1"
+character_name = "Master Hero"
 MAX_ATTACK = 20.0
 abilities = Array[Resource("res://Abilities/ability.gd")]([ExtResource("3_2mn4p"), ExtResource("4_2jyhs")])
 
+[node name="MainTexture" parent="Player1" index="0"]
+texture = ExtResource("5_fvoor")
+
 [node name="Player2" parent="." instance=ExtResource("2_w41in")]
 is_enemy = false
-character_name = "Player 2"
+character_name = "Cloud"
 MAX_ATTACK = 20.0
+
+[node name="MainTexture" parent="Player2" index="0"]
+texture = ExtResource("6_2kqwn")
 
 [node name="Player3" parent="." instance=ExtResource("2_w41in")]
 is_enemy = false
-character_name = "Player 3"
+character_name = "Squall"
 MAX_ATTACK = 20.0
+
+[node name="MainTexture" parent="Player3" index="0"]
+texture = ExtResource("7_0trt1")
 
 [node name="Player4" parent="." instance=ExtResource("2_w41in")]
 is_enemy = false
-character_name = "Player 4"
+character_name = "Yuna"
+MAX_SPEED = 200.0
 MAX_ATTACK = 20.0
+
+[node name="MainTexture" parent="Player4" index="0"]
+texture = ExtResource("8_w2fuf")
+
+[editable path="Player1"]
+[editable path="Player2"]
+[editable path="Player3"]
+[editable path="Player4"]

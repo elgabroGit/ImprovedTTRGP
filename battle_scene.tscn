@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://b85koefhfwb5b" path="res://PartyGroup/party_group.tscn" id="3_qsiq4"]
 [ext_resource type="Script" path="res://UI.gd" id="5_7n1y1"]
 [ext_resource type="Script" path="res://AudioManager.gd" id="6_mq46o"]
-[ext_resource type="AudioStream" uid="uid://cl2xi0ljj4tbf" path="res://Assets/Sounds/Victory.ogg" id="7_q7866"]
+[ext_resource type="AudioStream" uid="uid://7xvx53ypsuxp" path="res://Assets/Sounds/Victory.mp3" id="7_1ip6y"]
 [ext_resource type="AudioStream" uid="uid://d07g7xnmv4s55" path="res://Assets/Sounds/Choice.ogg" id="8_5lime"]
 [ext_resource type="AudioStream" uid="uid://cclsbhbppkvoj" path="res://Assets/Sounds/Confirm.ogg" id="9_3g0ki"]
 
@@ -137,7 +137,7 @@ offset_bottom = 639.0
 script = ExtResource("6_mq46o")
 
 [node name="VictorySound" type="AudioStreamPlayer" parent="AudioManager"]
-stream = ExtResource("7_q7866")
+stream = ExtResource("7_1ip6y")
 volume_db = -20.0
 
 [node name="ChoiceSound" type="AudioStreamPlayer" parent="AudioManager"]

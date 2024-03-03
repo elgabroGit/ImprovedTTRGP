@@ -16,4 +16,5 @@ character_name = "Nemico 2"
 character_name = "Nemico 3"
 
 [node name="Enemy4" parent="." instance=ExtResource("1_votkk")]
-character_name = "Nemico 4"
+character_name = "Velocista"
+MAX_SPEED = 200.0
