@@ -9,3 +9,5 @@ func _ready() -> void:
 		enemy.position = Vector2(-60 * i, 130 * i)
 		i += 1
 
+func _process(_delta: float) -> void:
+	enemies = get_children()

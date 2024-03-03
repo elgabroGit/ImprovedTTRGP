@@ -7,9 +7,13 @@
 script = ExtResource("1_2y7bk")
 
 [node name="Enemy1" parent="." instance=ExtResource("1_votkk")]
+character_name = "Nemico 1"
 
 [node name="Enemy2" parent="." instance=ExtResource("1_votkk")]
+character_name = "Nemico 2"
 
 [node name="Enemy3" parent="." instance=ExtResource("1_votkk")]
+character_name = "Nemico 3"
 
 [node name="Enemy4" parent="." instance=ExtResource("1_votkk")]
+character_name = "Nemico 4"

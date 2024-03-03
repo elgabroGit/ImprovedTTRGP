@@ -1,9 +1,14 @@
-[gd_scene load_steps=5 format=3 uid="uid://cwdqkohbl4lxp"]
+[gd_scene load_steps=10 format=3 uid="uid://cwdqkohbl4lxp"]
 
 [ext_resource type="Texture2D" uid="uid://bas15mdiyvey8" path="res://Assets/background.jpg" id="1_e3rdb"]
 [ext_resource type="Script" path="res://battle_scene.gd" id="1_mv4bc"]
 [ext_resource type="PackedScene" uid="uid://bfb5i6p4layke" path="res://EnemyGroup/enemy_group.tscn" id="2_ogina"]
 [ext_resource type="PackedScene" uid="uid://b85koefhfwb5b" path="res://PartyGroup/party_group.tscn" id="3_qsiq4"]
+[ext_resource type="Script" path="res://UI.gd" id="5_7n1y1"]
+[ext_resource type="Script" path="res://AudioManager.gd" id="6_mq46o"]
+[ext_resource type="AudioStream" uid="uid://cl2xi0ljj4tbf" path="res://Assets/Sounds/Victory.ogg" id="7_q7866"]
+[ext_resource type="AudioStream" uid="uid://d07g7xnmv4s55" path="res://Assets/Sounds/Choice.ogg" id="8_5lime"]
+[ext_resource type="AudioStream" uid="uid://cclsbhbppkvoj" path="res://Assets/Sounds/Confirm.ogg" id="9_3g0ki"]
 
 [node name="BattleScene" type="Node2D"]
 script = ExtResource("1_mv4bc")
@@ -33,6 +38,7 @@ position = Vector2(711, 168)
 
 [node name="UI" type="CanvasLayer" parent="."]
 layer = 0
+script = ExtResource("5_7n1y1")
 
 [node name="ActionButtons" type="VBoxContainer" parent="UI"]
 offset_left = 946.0
@@ -65,14 +71,89 @@ custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 text = "Run"
 
+[node name="PanelLogBox" type="Panel" parent="UI"]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -224.5
+offset_top = -225.0
+offset_right = 224.5
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="LogBoxText" type="Label" parent="UI/PanelLogBox"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelVictory" type="Panel" parent="UI"]
+visible = false
+offset_left = 146.0
+offset_top = 130.0
+offset_right = 485.0
+offset_bottom = 353.0
+
+[node name="VictoryLabel" type="Label" parent="UI/PanelVictory"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 5.0
+offset_bottom = 74.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 50
+text = "HAI VINTO"
+horizontal_alignment = 1
+
+[node name="VictoryButton" type="Button" parent="UI/PanelVictory"]
+custom_minimum_size = Vector2(150, 50)
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -19.0
+offset_top = -74.0
+offset_right = 19.0
+offset_bottom = -43.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Esci"
+
 [node name="AudioManager" type="Node" parent="."]
+script = ExtResource("6_mq46o")
+
+[node name="VictorySound" type="AudioStreamPlayer" parent="AudioManager"]
+stream = ExtResource("7_q7866")
+volume_db = -20.0
+
+[node name="ChoiceSound" type="AudioStreamPlayer" parent="AudioManager"]
+stream = ExtResource("8_5lime")
+volume_db = -20.0
+
+[node name="ConfirmSound" type="AudioStreamPlayer" parent="AudioManager"]
+stream = ExtResource("9_3g0ki")
+volume_db = -20.0
 
 [connection signal="signal_action_attack" from="." to="." method="_attack_main_loop"]
 [connection signal="signal_action_select" from="." to="." method="_select_action"]
+[connection signal="signal_battle_ended" from="." to="UI" method="_on_battle_scene_signal_battle_ended"]
+[connection signal="signal_battle_ended" from="." to="AudioManager" method="_on_battle_scene_signal_battle_ended"]
+[connection signal="signal_confirm_selection_cursor" from="." to="AudioManager" method="_on_battle_scene_signal_confirm_selection_cursor"]
 [connection signal="signal_enemy_select" from="." to="." method="_select_enemy"]
+[connection signal="signal_move_selection_cursor" from="." to="AudioManager" method="_on_battle_scene_signal_move_selection_cursor"]
+[connection signal="signal_start_ui" from="." to="UI" method="_on_battle_scene_signal_start_ui"]
+[connection signal="signal_stop_ui" from="." to="UI" method="_on_battle_scene_signal_stop_ui"]
 [connection signal="signal_target_selected" from="." to="." method="_next_phase"]
 [connection signal="pressed" from="UI/ActionButtons/Attack" to="." method="_on_attack_pressed"]
 [connection signal="pressed" from="UI/ActionButtons/Magic" to="." method="_on_magic_pressed"]
 [connection signal="pressed" from="UI/ActionButtons/Defend" to="." method="_on_defend_pressed"]
 [connection signal="pressed" from="UI/ActionButtons/Items" to="." method="_on_items_pressed"]
 [connection signal="pressed" from="UI/ActionButtons/Run" to="." method="_on_run_pressed"]
+[connection signal="pressed" from="UI/PanelVictory/VictoryButton" to="UI" method="_on_victory_button_pressed"]

@@ -1,10 +1,15 @@
 extends Node2D
 
-var party
+var players
 
 func _ready() -> void:
-	party = get_children()
+	players = get_children()
 	var i = 0
-	for player in party:
+	for player in players:
 		player.position = Vector2(60 * i, 130 * i)
+		player.scale.x = -1
+		player.health_label.scale.x = -1
 		i += 1
+
+func _process(_delta: float) -> void:
+	players = get_children()

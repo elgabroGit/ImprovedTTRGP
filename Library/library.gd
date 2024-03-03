@@ -11,3 +11,8 @@ enum BattleState {
 	ITEMS,
 	RUN
 }
+
+enum Status {
+	OK,
+	DEAD
+}

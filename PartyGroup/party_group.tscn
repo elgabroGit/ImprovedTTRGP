@@ -7,9 +7,21 @@
 script = ExtResource("1_rqy5n")
 
 [node name="Player1" parent="." instance=ExtResource("2_w41in")]
+is_enemy = false
+character_name = "Player 1"
+MAX_ATTACK = 20.0
 
 [node name="Player2" parent="." instance=ExtResource("2_w41in")]
+is_enemy = false
+character_name = "Player 2"
+MAX_ATTACK = 20.0
 
 [node name="Player3" parent="." instance=ExtResource("2_w41in")]
+is_enemy = false
+character_name = "Player 3"
+MAX_ATTACK = 20.0
 
 [node name="Player4" parent="." instance=ExtResource("2_w41in")]
+is_enemy = false
+character_name = "Player 4"
+MAX_ATTACK = 20.0
