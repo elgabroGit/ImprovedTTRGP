@@ -230,15 +230,27 @@ func _start_queue():
 			log_box_text.text +=  str( action['origin'].character_name ) + ' attacca ' + str( action['target'].character_name ) + '\n'
 			action['target'].health -= clamp( action['origin'].attack - action['target'].defense, .0, Library.MAX_DAMAGE_OUTPUT)
 			await get_tree().create_timer(1.2).timeout
-		# Caso di abilitá
-		if action['action'] is Ability:
+		# Caso di abilitá non healing
+		if action['action'] is Ability and action['action'].type != Library.Type.HEALING:
+			print(action['action'].type)
 			if !_validate_origins_and_targets(action):
 				continue
 			action['origin'].attack_animation()
 			var ability = action['action']
 			log_box_text.text +=  str( action['origin'].character_name ) + ' [ ' + str(ability.ability_name) + ' ] ' + str( action['target'].character_name ) + '\n'
 			# CALCOLO DEL DANNO DA RIVEDERE
-			action['target'].health -= clamp( ability.damage + action['origin'].attack - action['target'].defense, .0, Library.MAX_DAMAGE_OUTPUT)
+			action['target'].health = _calculate_damage_on_move(action['origin'], action['target'], action['action'])
+			await get_tree().create_timer(1.2).timeout
+		# Caso abilitá di healing
+		if action['action'] is Ability and action['action'].type == Library.Type.HEALING:
+			print(action['action'].type)
+			if !_validate_origins_and_targets(action):
+				continue
+			action['origin'].attack_animation()
+			var ability = action['action']
+			log_box_text.text +=  str( action['origin'].character_name ) + ' [ ' + str(ability.ability_name) + ' ] ' + str( action['target'].character_name ) + '\n'
+			# CALCOLO HEAL DA RIVEDERE
+			action['target'].health += ability.damage
 			await get_tree().create_timer(1.2).timeout
 	action_queue.clear()
 	emit_signal("signal_start_ui")
@@ -314,4 +326,30 @@ func _generate_enemy_random_attack_queue() -> Array:
 		enemy_action_queue.append(action_element)
 	return enemy_action_queue
 	
-# In queue 
+# Battle Functions
+func _calculate_damage_on_move(origin, target, move) -> float:
+	var multiplier = 1.0
+	var base_damage = move.damage
+	var move_element = move.element
+	var move_type = move.type
+	var origin_attack
+	var target_defense
+	var target_hp = target.health
+	if move.element in target.weaknesses:
+		multiplier *= 2
+		log_box_text.text += 'Attacco molto efficace\n'
+	if move.element in target.resistances:
+		multiplier *= 0.5
+		log_box_text.text += 'Attacco non molto efficace\n'
+	if move.element in target.immunities:
+		multiplier *= 0
+		log_box_text.text += 'Attacco totalmente resistito\n'
+	if move.type == Library.Type.MAGICAL:
+		origin_attack = origin.special_attack
+		target_defense = target.special_defense
+	if move.type == Library.Type.PHYSICAL:
+		origin_attack = origin.attack
+		target_defense = target.defense
+	var calculated = ( ( origin_attack + base_damage ) * multiplier ) - target_defense
+	calculated = clamp(calculated, 0, Library.MAX_DAMAGE_OUTPUT)
+	return target_hp - calculated

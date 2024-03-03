@@ -21,7 +21,8 @@ enum Status {
 enum Type {
 	PHYSICAL,
 	MAGICAL,
-	STATUS
+	STATUS,
+	HEALING
 }
 
 enum Element {

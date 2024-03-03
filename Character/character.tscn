@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://d3dfww3d05g5c"]
+[gd_scene load_steps=14 format=3 uid="uid://d3dfww3d05g5c"]
 
 [ext_resource type="Script" path="res://Character/character.gd" id="1_5djl3"]
 [ext_resource type="Texture2D" uid="uid://drh3ehm1wf71o" path="res://Assets/enemy_1.png" id="1_qs5wt"]
@@ -118,12 +118,28 @@ tracks/1/keys = {
 "values": [Color(1, 1, 1, 1)]
 }
 
+[sub_resource type="Animation" id="Animation_jts4k"]
+resource_name = "Heal"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MainTexture:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 14.201, 1, 1), Color(1, 14.201, 1, 1), Color(1, 1, 1, 1)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_wut0e"]
 _data = {
 "Attack": SubResource("Animation_1vnlc"),
 "Damaged": SubResource("Animation_x1wbp"),
 "Death": SubResource("Animation_pq8s3"),
 "Default": SubResource("Animation_diga1"),
+"Heal": SubResource("Animation_jts4k"),
 "RESET": SubResource("Animation_jp01d")
 }
 
