@@ -6,7 +6,8 @@ enum BattleState {
 	NONE,
 	ACTION_SELECTION,
 	ATTACK,
-	MAGIC,
+	ABILITY_SELECTION,
+	ABILITY,
 	DEFEND,
 	ITEMS,
 	RUN
@@ -15,4 +16,19 @@ enum BattleState {
 enum Status {
 	OK,
 	DEAD
+}
+
+enum Type {
+	PHYSICAL,
+	MAGICAL,
+	STATUS
+}
+
+enum Element {
+	BLUDEGONING,
+	SLASHING,
+	PIERCING,
+	FIRE,
+	WATER,
+	ELECTRIC
 }

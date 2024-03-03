@@ -21,14 +21,17 @@ var health: float:
 		health = value
 		if health < 0:			
 			emit_signal('signal_defeated')
-
-			
+@export var MAX_STAMINA: float = 10
+var stamina: float 
 @export var MAX_SPEED: float = 10
 var speed: float
 @export var MAX_ATTACK: float = 10
 var attack: float
 @export var MAX_DEFENSE: float = 2
 var defense: float
+
+@export_category("Abilities")
+@export var abilities: Array[Ability]
 
 
 func _ready() -> void:
@@ -37,6 +40,7 @@ func _ready() -> void:
 	speed = MAX_SPEED
 	attack = MAX_ATTACK
 	defense = MAX_DEFENSE
+	stamina = MAX_STAMINA
 
 func _process(_delta: float) -> void:
 	_update_health_bar()
@@ -64,7 +68,6 @@ func remove_character():
 	health = 0
 	status = Library.Status.DEAD
 	death_animation()
-	
 	
 func attack_animation():
 	animation.play("Attack")
