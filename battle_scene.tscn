@@ -1,0 +1,78 @@
+[gd_scene load_steps=5 format=3 uid="uid://cwdqkohbl4lxp"]
+
+[ext_resource type="Texture2D" uid="uid://bas15mdiyvey8" path="res://Assets/background.jpg" id="1_e3rdb"]
+[ext_resource type="Script" path="res://battle_scene.gd" id="1_mv4bc"]
+[ext_resource type="PackedScene" uid="uid://bfb5i6p4layke" path="res://EnemyGroup/enemy_group.tscn" id="2_ogina"]
+[ext_resource type="PackedScene" uid="uid://b85koefhfwb5b" path="res://PartyGroup/party_group.tscn" id="3_qsiq4"]
+
+[node name="BattleScene" type="Node2D"]
+script = ExtResource("1_mv4bc")
+
+[node name="BackgroundLayout" type="TextureRect" parent="."]
+self_modulate = Color(0.560784, 0.560784, 0.560784, 1)
+texture_filter = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 1.0
+offset_top = 1.0
+offset_right = 1151.0
+offset_bottom = 648.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_e3rdb")
+expand_mode = 1
+
+[node name="EnemyGroup" parent="." instance=ExtResource("2_ogina")]
+position = Vector2(400, 168)
+
+[node name="PartyGroup" parent="." instance=ExtResource("3_qsiq4")]
+position = Vector2(711, 168)
+
+[node name="UI" type="CanvasLayer" parent="."]
+layer = 0
+
+[node name="ActionButtons" type="VBoxContainer" parent="UI"]
+offset_left = 946.0
+offset_top = 422.0
+offset_right = 1143.0
+offset_bottom = 638.0
+
+[node name="Attack" type="Button" parent="UI/ActionButtons"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+text = "Attack"
+
+[node name="Magic" type="Button" parent="UI/ActionButtons"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+text = "Magic"
+
+[node name="Defend" type="Button" parent="UI/ActionButtons"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+text = "Defend"
+
+[node name="Items" type="Button" parent="UI/ActionButtons"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+text = "Items"
+
+[node name="Run" type="Button" parent="UI/ActionButtons"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+text = "Run"
+
+[node name="AudioManager" type="Node" parent="."]
+
+[connection signal="signal_action_attack" from="." to="." method="_attack_main_loop"]
+[connection signal="signal_action_select" from="." to="." method="_select_action"]
+[connection signal="signal_enemy_select" from="." to="." method="_select_enemy"]
+[connection signal="signal_target_selected" from="." to="." method="_next_phase"]
+[connection signal="pressed" from="UI/ActionButtons/Attack" to="." method="_on_attack_pressed"]
+[connection signal="pressed" from="UI/ActionButtons/Magic" to="." method="_on_magic_pressed"]
+[connection signal="pressed" from="UI/ActionButtons/Defend" to="." method="_on_defend_pressed"]
+[connection signal="pressed" from="UI/ActionButtons/Items" to="." method="_on_items_pressed"]
+[connection signal="pressed" from="UI/ActionButtons/Run" to="." method="_on_run_pressed"]

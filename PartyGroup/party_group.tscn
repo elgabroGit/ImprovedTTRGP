@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://b85koefhfwb5b"]
+
+[ext_resource type="Script" path="res://PartyGroup/party_group.gd" id="1_rqy5n"]
+[ext_resource type="PackedScene" uid="uid://d3dfww3d05g5c" path="res://Character/character.tscn" id="2_w41in"]
+
+[node name="PartyGroup" type="Node2D"]
+script = ExtResource("1_rqy5n")
+
+[node name="Player1" parent="." instance=ExtResource("2_w41in")]
+
+[node name="Player2" parent="." instance=ExtResource("2_w41in")]
+
+[node name="Player3" parent="." instance=ExtResource("2_w41in")]
+
+[node name="Player4" parent="." instance=ExtResource("2_w41in")]
