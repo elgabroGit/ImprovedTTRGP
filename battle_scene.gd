@@ -10,6 +10,7 @@ var action_queue: Array
 var enemies: Array
 var players: Array
 var all_targets: Array
+var temp_buff_queue: Array
 
 var list_abilities_set: bool = false
 var is_target_selected: bool = false
@@ -26,6 +27,7 @@ var current_player_selected_index: int = 0
 signal signal_action_select
 signal signal_enemy_select
 signal signal_ability_select
+signal signal_defend_select
 signal signal_ability_selected
 signal signal_action_attack
 signal signal_action_ability
@@ -55,6 +57,8 @@ func _process(_delta: float) -> void:
 		if current_battle_state == Library.BattleState.ABILITY:
 			emit_signal("signal_ability_selected")
 			is_target_selected = true
+		if current_battle_state == Library.BattleState.DEFEND:
+			emit_signal("signal_defend_select")
 		if current_player_selected_index == players.size():
 			_start_queue()
 
@@ -136,7 +140,10 @@ func _clear_list_abilities():
 
 func _populate_list_abilities():
 	for ability in players[current_player_selected_index].abilities:
-		list_abilities.add_item(ability.ability_name)
+		var selectable = true
+		if players[current_player_selected_index].stamina < ability.cost:
+			selectable = false
+		list_abilities.add_item(ability.ability_name, null, selectable)
 	list_abilities.select(0)
 	list_abilities.grab_focus()
 	list_abilities_set = true
@@ -159,8 +166,19 @@ func _select_enemy():
 		selected_target = enemies[selected_enemy_index]
 		emit_signal("signal_confirm_selection_cursor")
 		emit_signal("signal_target_selected")
+	if Input.is_action_just_pressed("ui_cancel"):
+		current_battle_state = Library.BattleState.NONE
+		_clear_decision()
+		emit_signal("signal_start_ui")
+		emit_signal("signal_confirm_selection_cursor")
+
 
 func _select_ability():
+	if Input.is_action_just_pressed("ui_cancel"):
+		current_battle_state = Library.BattleState.NONE
+		_clear_decision()
+		emit_signal("signal_start_ui")
+		emit_signal("signal_confirm_selection_cursor")
 	if Input.is_action_just_pressed("ui_up"):
 		emit_signal("signal_move_selection_cursor")
 	if Input.is_action_just_pressed("ui_down"):
@@ -171,14 +189,8 @@ func _select_ability():
 		selected_ability = players[current_player_selected_index].abilities[index_ability]
 		current_battle_state = Library.BattleState.ABILITY
 		# Clear and reset
-		_hide_list_abilities()
-		_clear_list_abilities()
-		_clear_all_focuses()
-		if selected_target_index < players.size():
-			selected_target_index = players.size()
-		all_targets[selected_target_index].focus()
+		_clear_decision()
 		_hide_action_buttons()
-		
 		
 func _select_target():
 	var prec_selected_index
@@ -221,6 +233,9 @@ func _start_queue():
 	action_queue += _generate_enemy_random_attack_queue()
 	action_queue.sort_custom( _speed_sort )
 	for action in action_queue:
+		# break se non ci sono target
+		if enemies.size() == 0:
+			break
 		_populate_factions()
 		# Caso di attacco semplice
 		if action['action'] == null:
@@ -240,6 +255,7 @@ func _start_queue():
 			log_box_text.text +=  str( action['origin'].character_name ) + ' [ ' + str(ability.ability_name) + ' ] ' + str( action['target'].character_name ) + '\n'
 			# CALCOLO DEL DANNO DA RIVEDERE
 			action['target'].health = _calculate_damage_on_move(action['origin'], action['target'], action['action'])
+			action['origin'].stamina -= action['action'].cost
 			await get_tree().create_timer(1.2).timeout
 		# Caso abilitá di healing
 		if action['action'] is Ability and action['action'].type == Library.Type.HEALING:
@@ -251,8 +267,25 @@ func _start_queue():
 			log_box_text.text +=  str( action['origin'].character_name ) + ' [ ' + str(ability.ability_name) + ' ] ' + str( action['target'].character_name ) + '\n'
 			# CALCOLO HEAL DA RIVEDERE
 			action['target'].health += ability.damage
+			action['origin'].stamina -= action['action'].cost
 			await get_tree().create_timer(1.2).timeout
+		
+		print(action['action'])
+		# Caso difesa
+		if action['action'] is int and action['action'] == Library.BattleState.DEFEND:
+			log_box_text.text += str( action['origin'].character_name ) + ' Si difende!' + '\n'
+			temp_buff_queue.push_back( action['origin'] )
+			print( action['origin'].defense )
+			action['origin'].defense *= 10.50
+			print( action['origin'].defense )
+			print("Mi sono difeso :D")
+			action['origin'].defense_animation()
+			await get_tree().create_timer(1.2).timeout
+		
 	action_queue.clear()
+	
+	_clear_temporary_buffs()
+	
 	emit_signal("signal_start_ui")
 
 func _validate_origins_and_targets(action) -> bool:
@@ -289,6 +322,10 @@ func _next_phase():
 	var temp_action = null
 	if current_battle_state == Library.BattleState.ABILITY:
 		temp_action = selected_ability
+		
+	if current_battle_state == Library.BattleState.DEFEND:
+		temp_action = current_battle_state
+		selected_target = players[current_player_selected_index]
 	
 	var action_element = {
 		"origin": players[current_player_selected_index], 
@@ -353,3 +390,16 @@ func _calculate_damage_on_move(origin, target, move) -> float:
 	var calculated = ( ( origin_attack + base_damage ) * multiplier ) - target_defense
 	calculated = clamp(calculated, 0, Library.MAX_DAMAGE_OUTPUT)
 	return target_hp - calculated
+	
+func _clear_temporary_buffs():
+	for actor in temp_buff_queue:
+		actor.reset_buffs()
+		
+# Also used in cancel
+func _clear_decision():
+	_hide_list_abilities()
+	_clear_list_abilities()
+	_clear_all_focuses()
+	if selected_target_index < players.size():
+		selected_target_index = players.size()
+	all_targets[selected_target_index].focus()

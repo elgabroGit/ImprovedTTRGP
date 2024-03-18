@@ -9,6 +9,7 @@ func _ready() -> void:
 		player.position = Vector2(60 * i, 130 * i)
 		player.scale.x = -1
 		player.health_label.scale.x = -1
+		player.stamina_label.scale.x = -1
 		i += 1
 
 func _process(_delta: float) -> void:

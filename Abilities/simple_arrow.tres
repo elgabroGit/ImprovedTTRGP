@@ -8,5 +8,5 @@ ability_name = "Simple Arrow"
 type = 0
 element = 2
 damage = 28.0
-cost = 0.0
+cost = 4.0
 description = "Una semplice freccia"

@@ -5,6 +5,8 @@ signal signal_defeated
 @onready var focus_sprite: Sprite2D = $Focus
 @onready var health_bar: ProgressBar = $HealthBar
 @onready var health_label: Label = $HealthLabel
+@onready var stamina_bar: ProgressBar = $StaminaBar
+@onready var stamina_label: Label = $StaminaLabel
 @onready var animation: AnimationPlayer = $AnimationPlayer
 @onready var main_texture: Sprite2D = $MainTexture
 var character_ready: bool = false
@@ -27,7 +29,11 @@ var health: float:
 		if health > MAX_HEALTH:
 			health = MAX_HEALTH
 @export var MAX_STAMINA: float = 10
-var stamina: float 
+var stamina: float:
+	set(value):
+		stamina = value
+		if value < 0:
+			stamina = 0
 @export var MAX_SPEED: float = 10
 var speed: float
 @export var MAX_ATTACK: float = 10
@@ -64,12 +70,20 @@ func _process(_delta: float) -> void:
 	character_ready = true
 	_update_health_bar()
 	_update_health_label()
+	_update_stamina_bar()
+	_update_stamina_label()
 
 func _update_health_bar() -> void:
 	health_bar.value = (health/MAX_HEALTH) * 100
 	
 func _update_health_label() -> void:
 	health_label.text = str(health) + '/' + str(MAX_HEALTH) 
+	
+func _update_stamina_bar() -> void:
+	stamina_bar.value = (stamina/MAX_STAMINA) * 100
+	
+func _update_stamina_label() -> void:
+	stamina_label.text = str(stamina) + '/' + str(MAX_STAMINA) 
 	
 func toggle_focus():
 	if focus_sprite.visible:
@@ -91,6 +105,9 @@ func remove_character():
 func attack_animation():
 	animation.play("Attack")
 	
+func defense_animation():
+	animation.play("Defense")
+	
 func damage_animation():
 	animation.play("Damaged")
 
@@ -100,3 +117,9 @@ func death_animation():
 func heal_animation():
 	animation.play("Heal")
 	
+func reset_buffs():
+	speed = MAX_SPEED
+	attack = MAX_ATTACK
+	defense = MAX_DEFENSE
+	special_attack = MAX_SPECIAL_ATTACK
+	special_defense = MAX_SPECIAL_DEFENSE
