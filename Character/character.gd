@@ -125,4 +125,5 @@ func reset_buffs():
 	special_defense = MAX_SPECIAL_DEFENSE
 	
 func reset_defense_buff():
-	defense *= 0.5
+	defense = MAX_DEFENSE
+

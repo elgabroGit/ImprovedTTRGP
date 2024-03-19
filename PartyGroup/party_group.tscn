@@ -17,6 +17,7 @@ script = ExtResource("1_rqy5n")
 is_enemy = false
 character_name = "Master Hero"
 MAX_ATTACK = 20.0
+MAX_DEFENSE = 5.0
 abilities = Array[Resource("res://Abilities/ability.gd")]([ExtResource("8_bapqb")])
 
 [node name="MainTexture" parent="Player1" index="0"]

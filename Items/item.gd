@@ -11,4 +11,4 @@ class_name Item
 @export var icon: Texture2D
 
 func effect():
-	pass
+	print("Nessun effetto")

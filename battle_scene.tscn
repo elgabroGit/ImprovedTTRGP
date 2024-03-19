@@ -12,7 +12,7 @@
 [ext_resource type="Script" path="res://Inventory.gd" id="10_sbfxh"]
 [ext_resource type="Resource" uid="uid://c7tyjfammetwv" path="res://Items/oggetto_inutile.tres" id="11_up244"]
 [ext_resource type="Script" path="res://Items/inventory_item.gd" id="12_bunhj"]
-[ext_resource type="Resource" uid="uid://cvsbbdt3fifp7" path="res://Items/secondo_oggetto.tres" id="13_88t82"]
+[ext_resource type="Resource" uid="uid://draky3ojg5utm" path="res://Items/pozione_1.tres" id="13_f4p1d"]
 
 [sub_resource type="Resource" id="Resource_q06qo"]
 script = ExtResource("12_bunhj")
@@ -21,8 +21,8 @@ count = 1
 
 [sub_resource type="Resource" id="Resource_dae6d"]
 script = ExtResource("12_bunhj")
-item = ExtResource("13_88t82")
-count = 2
+item = ExtResource("13_f4p1d")
+count = 1
 
 [node name="BattleScene" type="Node2D"]
 script = ExtResource("1_mv4bc")

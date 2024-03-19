@@ -213,14 +213,16 @@ func _populate_list_abilities():
 	list_abilities_set = true
 
 func _populate_list_inventory():
+	var i = 0
 	for object in inventory.elements:
 		var item = object.item
 		var count = object.count
 		if count > 0:
+			list_inventory.select(i)
 			list_inventory.add_item(item.item_name + ': ' + str(count), item.icon)
 		else:
 			list_inventory.add_item(item.item_name + ': ' + str(count), item.icon, false)
-	list_inventory.select(0)
+	i += 1
 	list_inventory.grab_focus()
 	list_inventory_set = true
 
@@ -305,8 +307,10 @@ func _select_target():
 
 func _select_item():
 	list_inventory.grab_focus()
-	label_item_description.text = str( inventory.elements[ list_inventory.get_selected_items()[0] ].item.description )
-	print( label_item_description.text )
+	if is_instance_valid( inventory.elements[ list_inventory.get_selected_items()[0] ] ):
+		label_item_description.text = str( inventory.elements[ list_inventory.get_selected_items()[0] ].item.description )
+	else:
+		label_item_description.text = ''
 	if Input.is_action_just_pressed("ui_cancel"):
 		current_battle_state = Library.BattleState.NONE
 		_clear_decision()
@@ -384,6 +388,7 @@ func _start_queue():
 			temp_buff_queue.push_back( action['origin'] )
 			print( action['origin'].defense )
 			action['origin'].defense *= 1.5
+			action['origin'].defense = floor( action['origin'].defense )
 			print( action['origin'].defense )
 			print("Mi sono difeso :D")
 			action['origin'].defense_animation()
@@ -393,6 +398,7 @@ func _start_queue():
 		if action['action'] is InventoryItem:
 			log_box_text.text += str( action['origin'].character_name ) + ' usa ' + str( action['action'].item.item_name ) + '\n'
 			# Usa effetto dell'oggetto sul target
+			action['action'].item.effect()
 			await get_tree().create_timer(1.2).timeout
 			
 	action_queue.clear()
@@ -530,6 +536,8 @@ func _clear_decision():
 	
 func _check_ability_availability() -> bool:
 	var unavailable_moves = 0
+	if !is_instance_valid(players[ current_player_selected_index ]):
+		return false
 	for ability in players[ current_player_selected_index ].abilities:
 		if ability.cost > players[ current_player_selected_index ].stamina:
 			unavailable_moves += 1		
