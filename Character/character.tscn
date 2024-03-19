@@ -103,6 +103,21 @@ tracks/1/keys = {
 [sub_resource type="Animation" id="Animation_diga1"]
 resource_name = "Default"
 
+[sub_resource type="Animation" id="Animation_864qd"]
+resource_name = "Defense"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MainTexture:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.4, 0.5, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(0.321569, 0.321569, 0.321569, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(0.321569, 0.321569, 0.321569, 1), Color(1, 1, 1, 1)]
+}
+
 [sub_resource type="Animation" id="Animation_jts4k"]
 resource_name = "Heal"
 tracks/0/type = "value"
@@ -143,21 +158,6 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Color(1, 1, 1, 1)]
-}
-
-[sub_resource type="Animation" id="Animation_864qd"]
-resource_name = "Defense"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("MainTexture:self_modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.4, 0.5, 0.6),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 1), Color(0.321569, 0.321569, 0.321569, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(0.321569, 0.321569, 0.321569, 1), Color(1, 1, 1, 1)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_wut0e"]

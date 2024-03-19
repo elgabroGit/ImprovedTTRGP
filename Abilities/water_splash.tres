@@ -1,5 +1,6 @@
-[gd_resource type="Resource" script_class="Ability" load_steps=2 format=3 uid="uid://kdvhjg8kqqbi"]
+[gd_resource type="Resource" script_class="Ability" load_steps=3 format=3 uid="uid://kdvhjg8kqqbi"]
 
+[ext_resource type="Texture2D" uid="uid://px2xcdgiy45" path="res://Assets/Icons/i-water.jpg" id="1_6fyps"]
 [ext_resource type="Script" path="res://Abilities/ability.gd" id="1_tieum"]
 
 [resource]
@@ -10,3 +11,4 @@ element = 4
 damage = 20.0
 cost = 2.0
 description = "A water whip"
+icon = ExtResource("1_6fyps")

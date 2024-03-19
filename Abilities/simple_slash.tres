@@ -1,5 +1,6 @@
-[gd_resource type="Resource" script_class="Ability" load_steps=2 format=3 uid="uid://c467ufxhsoojh"]
+[gd_resource type="Resource" script_class="Ability" load_steps=3 format=3 uid="uid://c467ufxhsoojh"]
 
+[ext_resource type="Texture2D" uid="uid://cd3dq5hi5x1jd" path="res://Assets/Icons/i-slashing.jpg" id="1_8cqt2"]
 [ext_resource type="Script" path="res://Abilities/ability.gd" id="1_2164y"]
 
 [resource]
@@ -10,3 +11,4 @@ element = 4
 damage = 20.0
 cost = 0.0
 description = "Un semplice taglio"
+icon = ExtResource("1_8cqt2")

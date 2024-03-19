@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="Item" load_steps=3 format=3 uid="uid://c7tyjfammetwv"]
+
+[ext_resource type="Texture2D" uid="uid://w7tml1ojx72r" path="res://Assets/Icons/i-notype.jpg" id="1_a7chr"]
+[ext_resource type="Script" path="res://Items/item.gd" id="1_yl3p8"]
+
+[resource]
+script = ExtResource("1_yl3p8")
+item_name = "Oggetto inutile"
+cost = 0
+is_key = false
+is_stackable = true
+max_stack = 99
+description = "Un oggetto che non serve a una ciola"
+icon = ExtResource("1_a7chr")

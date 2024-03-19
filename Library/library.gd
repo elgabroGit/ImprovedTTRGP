@@ -9,6 +9,7 @@ enum BattleState {
 	ABILITY_SELECTION,
 	ABILITY,
 	DEFEND,
+	ITEMS_SELECTION,
 	ITEMS,
 	RUN
 }

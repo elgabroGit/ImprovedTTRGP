@@ -1,6 +1,7 @@
-[gd_resource type="Resource" script_class="Ability" load_steps=2 format=3 uid="uid://ddk2nlhmsq0ge"]
+[gd_resource type="Resource" script_class="Ability" load_steps=3 format=3 uid="uid://ddk2nlhmsq0ge"]
 
 [ext_resource type="Script" path="res://Abilities/ability.gd" id="1_h3x1a"]
+[ext_resource type="Texture2D" uid="uid://d2den6u8xt82r" path="res://Assets/Icons/i-piercing.jpg" id="1_o01j6"]
 
 [resource]
 script = ExtResource("1_h3x1a")
@@ -10,3 +11,4 @@ element = 2
 damage = 28.0
 cost = 4.0
 description = "Una semplice freccia"
+icon = ExtResource("1_o01j6")

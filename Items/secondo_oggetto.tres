@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="Item" load_steps=3 format=3 uid="uid://cvsbbdt3fifp7"]
+
+[ext_resource type="Script" path="res://Items/item.gd" id="1_78ulv"]
+[ext_resource type="Texture2D" uid="uid://s0ent7y8wt7e" path="res://Assets/Icons/i-bludgeoning.jpg" id="1_gnkq6"]
+
+[resource]
+script = ExtResource("1_78ulv")
+item_name = "Oggetto 2"
+cost = 0
+is_key = false
+is_stackable = true
+max_stack = 99
+description = "Oggetto"
+icon = ExtResource("1_gnkq6")

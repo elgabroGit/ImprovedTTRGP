@@ -8,7 +8,10 @@ class_name Ability
 @export var damage: float = 0
 @export var cost: float = 0
 
+@export_group("Miscellanea")
 @export var description: String = 'N/D'
+@export var icon: Texture
+
 
 func effect():
 	pass

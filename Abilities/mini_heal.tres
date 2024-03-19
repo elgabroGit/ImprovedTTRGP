@@ -1,6 +1,7 @@
-[gd_resource type="Resource" script_class="Ability" load_steps=2 format=3 uid="uid://c2r23726i5a7v"]
+[gd_resource type="Resource" script_class="Ability" load_steps=3 format=3 uid="uid://c2r23726i5a7v"]
 
 [ext_resource type="Script" path="res://Abilities/ability.gd" id="1_btfsn"]
+[ext_resource type="Texture2D" uid="uid://dw0xve4jaxng2" path="res://Assets/Icons/i-grass.jpg" id="1_f2hyp"]
 
 [resource]
 script = ExtResource("1_btfsn")
@@ -10,3 +11,4 @@ element = 0
 damage = 20.0
 cost = 0.0
 description = "N/D"
+icon = ExtResource("1_f2hyp")

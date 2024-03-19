@@ -1,5 +1,6 @@
-[gd_resource type="Resource" script_class="Ability" load_steps=2 format=3 uid="uid://crgamsh0rv2i6"]
+[gd_resource type="Resource" script_class="Ability" load_steps=3 format=3 uid="uid://crgamsh0rv2i6"]
 
+[ext_resource type="Texture2D" uid="uid://q8y8snc5xngv" path="res://Assets/Icons/i-fire.jpg" id="1_8a6hk"]
 [ext_resource type="Script" path="res://Abilities/ability.gd" id="1_do7ls"]
 
 [resource]
@@ -10,3 +11,4 @@ element = 3
 damage = 280.0
 cost = 30.0
 description = "Incredible Fire Damage By Meteor"
+icon = ExtResource("1_8a6hk")
