@@ -10,6 +10,10 @@ extends Node2D
 @onready var panel_item_description: Panel = $UI/PanelItemDescription
 @onready var label_item_description: Label = $UI/PanelItemDescription/LabelItemDescription
 
+@onready var ability: Button = $UI/ActionButtons/Ability
+@onready var items: Button = $UI/ActionButtons/Items
+
+
 #Inventario
 @onready var inventory: Node = $Inventory
 
@@ -61,7 +65,9 @@ func _ready() -> void:
 	current_battle_state = Library.BattleState.NONE
 
 func _process(_delta: float) -> void:
-	if _check_battle_status(): 
+	if _check_battle_status():
+		_check_ability_availability()
+		_check_items_availability() 
 		_populate_factions()
 		if current_battle_state == Library.BattleState.NONE:
 			_start_phase()
@@ -521,4 +527,26 @@ func _clear_decision():
 	if selected_target_index < players.size():
 		selected_target_index = players.size()
 	all_targets[selected_target_index].focus()
+	
+func _check_ability_availability() -> bool:
+	var unavailable_moves = 0
+	for ability in players[ current_player_selected_index ].abilities:
+		if ability.cost > players[ current_player_selected_index ].stamina:
+			unavailable_moves += 1		
+	if unavailable_moves == players[ current_player_selected_index ].abilities.size():
+		ability.disabled = true
+		return false
+	ability.disabled = false
+	return true
+	
+func _check_items_availability() -> bool:
+	var unavailable_items = 0
+	for object in inventory.elements:
+		if object.count <= 0:
+			unavailable_items += 1
+	if unavailable_items == inventory.elements.size():
+		items.disabled = true
+		return false
+	items.disabled = false
+	return true
 

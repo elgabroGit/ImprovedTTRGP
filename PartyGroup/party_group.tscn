@@ -1,10 +1,9 @@
-[gd_scene load_steps=11 format=3 uid="uid://b85koefhfwb5b"]
+[gd_scene load_steps=10 format=3 uid="uid://b85koefhfwb5b"]
 
 [ext_resource type="Script" path="res://PartyGroup/party_group.gd" id="1_rqy5n"]
 [ext_resource type="PackedScene" uid="uid://d3dfww3d05g5c" path="res://Character/character.tscn" id="2_w41in"]
 [ext_resource type="Resource" uid="uid://ddk2nlhmsq0ge" path="res://Abilities/simple_arrow.tres" id="4_2jyhs"]
 [ext_resource type="Texture2D" uid="uid://cy4rbd16sesms" path="res://Assets/hero_1.png" id="5_fvoor"]
-[ext_resource type="Resource" uid="uid://c2r23726i5a7v" path="res://Abilities/mini_heal.tres" id="5_kfvcx"]
 [ext_resource type="Texture2D" uid="uid://hswcogeqmttj" path="res://Assets/hero_2.png" id="6_2kqwn"]
 [ext_resource type="Texture2D" uid="uid://de22d15cvuttf" path="res://Assets/hero_3.png" id="7_0trt1"]
 [ext_resource type="Resource" uid="uid://crgamsh0rv2i6" path="res://Abilities/master_meteor.tres" id="8_bapqb"]
@@ -18,7 +17,7 @@ script = ExtResource("1_rqy5n")
 is_enemy = false
 character_name = "Master Hero"
 MAX_ATTACK = 20.0
-abilities = Array[Resource("res://Abilities/ability.gd")]([ExtResource("8_bapqb"), ExtResource("9_sl0ly"), ExtResource("5_kfvcx")])
+abilities = Array[Resource("res://Abilities/ability.gd")]([ExtResource("8_bapqb")])
 
 [node name="MainTexture" parent="Player1" index="0"]
 texture = ExtResource("5_fvoor")
