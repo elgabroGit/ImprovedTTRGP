@@ -10,5 +10,5 @@ class_name Item
 @export var description: String = "Oggetto"
 @export var icon: Texture2D
 
-func effect():
-	print("Nessun effetto")
+func effect(battle, action):
+	print(battle.turn)

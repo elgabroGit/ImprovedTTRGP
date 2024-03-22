@@ -307,10 +307,8 @@ func _select_target():
 
 func _select_item():
 	list_inventory.grab_focus()
-	if is_instance_valid( inventory.elements[ list_inventory.get_selected_items()[0] ] ):
+	if list_inventory.get_selected_items().size() > 0:
 		label_item_description.text = str( inventory.elements[ list_inventory.get_selected_items()[0] ].item.description )
-	else:
-		label_item_description.text = ''
 	if Input.is_action_just_pressed("ui_cancel"):
 		current_battle_state = Library.BattleState.NONE
 		_clear_decision()
@@ -396,9 +394,11 @@ func _start_queue():
 			
 		# Caso oggetto
 		if action['action'] is InventoryItem:
+			if !_validate_origins_and_targets(action):
+				continue
 			log_box_text.text += str( action['origin'].character_name ) + ' usa ' + str( action['action'].item.item_name ) + '\n'
 			# Usa effetto dell'oggetto sul target
-			action['action'].item.effect()
+			action['action'].item.effect(self, action)
 			await get_tree().create_timer(1.2).timeout
 			
 	action_queue.clear()
